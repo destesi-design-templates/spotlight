@@ -1,0 +1,196 @@
+/* Spotlight: a dark gallery. Every product is an object under a single light:
+   deep green-black rooms, Fraunces for display (its italic for the quiet
+   lines), DM Sans for reading, thin brass rules. shop.css reads the tokens;
+   the rules below are this template's own. Everything here is yours. */
+@layer components {
+:root {
+  --shop-bg: #0d1310;
+  --shop-ink: #ece6da;
+  --shop-muted: #9aa39b;
+  --shop-line: #25302a;
+  --shop-surface: #141c18;
+  --shop-font-body: 'DM Sans', sans-serif;
+  --shop-font-display: 'Fraunces', serif;
+  --shop-font-wordmark: 'Fraunces', serif;
+  --shop-radius-button: 0;
+  --shop-radius-card: 0;
+  --shop-section-y: 120px;
+  --shop-gutter: 6%;
+  --shop-accent: #c8a96a;
+  --shop-accent-ink: #0d1310;
+  /* The brass of the rules and frames. A live shop's brand colour replaces the
+     accent; the touch of ink keeps a dark brand colour visible on the dark room. */
+  --sl-brass: color-mix(in srgb, var(--shop-accent) 78%, var(--shop-ink));
+  /* Small brass text (piece numbers) gets more ink, so it stays legible on any brand colour. */
+  --sl-brass-text: color-mix(in srgb, var(--shop-accent) 58%, var(--shop-ink));
+  --sl-deep: #090d0b;
+  color-scheme: dark;
+}
+body { font-size: 15px; }
+h1, h2 { font-weight: 400; letter-spacing: -.015em; line-height: 1.04; text-wrap: balance; }
+h2 { font-size: clamp(34px, 3.4vw, 54px); }
+.eyebrow { font-size: 11px; letter-spacing: .3em; color: var(--shop-muted); }
+.button { background: transparent; color: var(--shop-ink); border-color: var(--sl-brass); padding: 17px 38px; font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; transition: background .35s, color .35s, border-color .35s; }
+.button:hover { opacity: 1; background: var(--shop-accent); color: var(--shop-accent-ink); border-color: var(--shop-accent); }
+
+/* The announcement stays in the room's own colours: a brand colour never carries it. */
+.announcement { background: var(--sl-deep); color: var(--shop-ink); border-bottom: 1px solid var(--shop-line); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; padding-block: 11px; }
+
+/* Header: the wordmark on the left, the links and the cart on the right. */
+.shop-header { padding-block: 24px; background: color-mix(in srgb, var(--shop-bg) 86%, transparent); border-bottom-color: var(--shop-line); }
+.shop-header .wordmark { margin-right: auto; font-size: 19px; letter-spacing: .38em; text-transform: uppercase; }
+.shop-header .shop-nav { gap: 36px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--shop-muted); }
+.shop-header .shop-nav a { padding-block: 6px; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+.shop-header .shop-nav a:hover { color: var(--shop-ink); border-bottom-color: var(--sl-brass); }
+.shop-header > .eyebrow { padding-left: 28px; border-left: 1px solid var(--shop-line); color: var(--shop-muted); }
+.shop-header .cart-button { background: transparent; color: var(--shop-ink); border-color: var(--shop-line); padding-inline: 20px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; transition: border-color .3s; }
+.shop-header .cart-button:hover { opacity: 1; border-color: var(--sl-brass); }
+
+/* Brass hairlines either side of a centred eyebrow. */
+.hero-overlay .eyebrow, section[data-section-type="rich_text"] > .eyebrow { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.hero-overlay .eyebrow::before, .hero-overlay .eyebrow::after, section[data-section-type="rich_text"] > .eyebrow::before, section[data-section-type="rich_text"] > .eyebrow::after { content: ""; flex: none; width: 44px; height: 1px; background: var(--sl-brass); }
+
+/* The cover: edge to edge and tall, the words centred in a pool of shade,
+   the photo melting into the room below. */
+section[data-section-type="hero"] { padding: 0; }
+.hero-overlay { min-height: min(92vh, 940px); }
+.hero-overlay > div { display: grid; justify-items: center; align-content: center; padding: 96px var(--shop-gutter) 120px; background: radial-gradient(ellipse 58% 52% at 50% 48%, rgb(9 13 11 / .62), transparent 72%), linear-gradient(to bottom, rgb(9 13 11 / .42), rgb(9 13 11 / .22) 45%, var(--shop-bg)); text-shadow: 0 1px 24px rgb(9 13 11 / .5); }
+.hero-overlay .eyebrow { color: inherit; margin-bottom: 28px; }
+.hero-overlay h2 { max-width: 12ch; font-size: clamp(56px, 8.2vw, 132px); line-height: .98; margin-bottom: 26px; }
+.hero-overlay p:not(.eyebrow) { max-width: 36ch; font-family: var(--shop-font-display); font-style: italic; font-size: 21px; line-height: 1.5; }
+.hero-overlay .button { margin-top: 18px; color: inherit; text-shadow: none; }
+
+/* Text on its own: a centred manifesto, the title in italic. */
+section[data-section-type="rich_text"] > :not(.story-split) { margin-inline: auto; text-align: center; }
+section[data-section-type="rich_text"] > .eyebrow { margin-bottom: 36px; }
+section[data-section-type="rich_text"] > h2 { max-width: 21ch; font-size: clamp(38px, 4.3vw, 66px); font-style: italic; line-height: 1.12; margin-bottom: 32px; }
+section[data-section-type="rich_text"] > .story { max-width: 50ch; font-size: 17px; color: var(--shop-muted); }
+section[data-section-type="rich_text"] > .story:empty { display: none; }
+
+/* Text beside a photo: the photo hung in a thin brass frame. */
+.story-split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); column-gap: 9%; row-gap: 40px; }
+.story-split > img { outline: 1px solid color-mix(in srgb, var(--sl-brass) 55%, transparent); outline-offset: 16px; }
+.story-split .eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+.story-split .eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--sl-brass); }
+.story-split h2 { font-size: clamp(40px, 4.4vw, 68px); margin-bottom: 26px; }
+.story-split .story { max-width: 44ch; font-size: 17px; color: var(--shop-muted); margin-bottom: 36px; }
+
+/* Collections: the title on the left, a brass rule running out of it. */
+section[data-section-type="product_grid"] h2, section[data-section-type="product_carousel"] h2, section[data-section-type="product_suggested"] h2 { display: flex; align-items: center; gap: 32px; margin-bottom: 48px; }
+section[data-section-type="product_grid"] h2::after, section[data-section-type="product_carousel"] h2::after, section[data-section-type="product_suggested"] h2::after { content: ""; flex: 1; min-width: 40px; height: 1px; background: linear-gradient(to right, var(--sl-brass), transparent); }
+/* The carousel's arrows sit on the title's line. */
+section[data-section-type="product_carousel"] > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 32px; row-gap: 48px; align-items: center; }
+section[data-section-type="product_carousel"] h2 { grid-area: 1 / 1; margin: 0; }
+section[data-section-type="product_carousel"] .scroll-row { display: contents; }
+section[data-section-type="product_carousel"] .scroll-controls { grid-area: 1 / 2; margin: 0; }
+section[data-section-type="product_carousel"] .scroll-track { grid-area: 2 / 1 / 3 / 3; padding-bottom: 4px; scrollbar-width: none; }
+.scroll-controls button { min-width: 48px; min-height: 48px; background: transparent; color: var(--shop-ink); border-color: var(--shop-line); transition: border-color .3s; }
+.scroll-controls button:not(:disabled):hover { opacity: 1; border-color: var(--sl-brass); }
+
+/* Category chips: quiet tabs, the chosen one underlined in brass. */
+.category-chips { gap: 4px 34px; margin-bottom: 48px; border-bottom: 1px solid var(--shop-line); }
+.category-chips button { margin-bottom: -1px; padding: 12px 0; border: 0; border-bottom: 1px solid transparent; border-radius: 0; background: transparent; color: var(--shop-muted); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; transition: color .3s, border-color .3s; }
+.category-chips button:not(:disabled):hover { opacity: 1; color: var(--shop-ink); }
+.category-chips button[aria-pressed="true"] { background: transparent; color: var(--shop-ink); border-bottom-color: var(--sl-brass); }
+
+/* Cards: the object on its dark plinth, a brass frame when you come close,
+   and a gallery label — piece number, name, price. */
+.products { column-gap: 32px; row-gap: 72px; counter-reset: piece; }
+.products-carousel { counter-reset: piece; }
+.product-card { counter-increment: piece; }
+.product-card img { filter: brightness(.9); transition: transform 1.2s cubic-bezier(.2, .7, .2, 1), filter .6s; }
+.product-card:hover img { transform: scale(1.03); filter: brightness(1.04); }
+.product-media::after { content: ""; position: absolute; inset: 20px; border: 1px solid var(--sl-brass); opacity: 0; pointer-events: none; transition: opacity .5s, inset .5s; }
+.product-card:hover .product-media::after, .product-card:focus-visible .product-media::after { inset: 14px; opacity: .75; }
+.product-caption { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; row-gap: 6px; align-items: baseline; padding: 22px 0 0; }
+.product-caption::before { content: counter(piece, decimal-leading-zero); grid-area: 1 / 1 / 3 / 2; font-size: 11px; letter-spacing: .16em; font-variant-numeric: tabular-nums; color: var(--sl-brass-text); }
+.product-caption h3 { grid-column: 2; font-family: var(--shop-font-display); font-size: 22px; line-height: 1.2; }
+.product-caption span { grid-column: 2; color: var(--shop-muted); font-size: 13px; letter-spacing: .1em; }
+.product-badge { top: 16px; left: 16px; padding: 6px 12px; background: rgb(9 13 11 / .78); color: var(--shop-ink); border: 1px solid var(--sl-brass); font-size: 10px; font-weight: 500; letter-spacing: .24em; }
+
+/* The closing invitation: a thread of light falling onto the words. */
+section[data-section-type="cta"] { background: radial-gradient(ellipse 46% 70% at 50% 58%, #17221d, transparent 72%); }
+.cta { gap: 0; padding: 0 0 24px; }
+.cta::before { content: ""; width: 1px; height: 88px; margin-bottom: 44px; background: linear-gradient(transparent, var(--sl-brass)); }
+.cta h2 { max-width: 16ch; font-size: clamp(42px, 5vw, 80px); margin-bottom: 22px; }
+.cta p { max-width: 44ch; margin-bottom: 36px; font-family: var(--shop-font-display); font-style: italic; font-size: 20px; color: var(--shop-muted); }
+
+/* Product page: a tall photo, the words held beside it as you scroll. */
+section[data-section-type="product_detail"] { padding-block: 72px 24px; }
+.product-detail { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px 8%; align-items: start; }
+.product-detail > img, .gallery-main > img { aspect-ratio: 4 / 5; max-height: none; background: var(--shop-surface); }
+.product-detail > [data-sf-target="card"] { position: sticky; top: 112px; padding-top: 32px; }
+.product-detail .eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+.product-detail .eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--sl-brass); }
+.product-detail h1 { font-size: clamp(40px, 4vw, 64px); margin-bottom: 18px; }
+.product-detail .price { font-size: 18px; letter-spacing: .08em; color: var(--shop-muted); padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--shop-line); }
+.product-detail [data-sf-target="body"] { color: var(--shop-muted); font-size: 16px; line-height: 1.8; }
+.product-detail button[data-sf-target="button"] { margin-top: 20px; padding: 20px; border-color: var(--sl-brass); font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; }
+.product-detail [data-sf-target="card"] > a, .product-links a { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--shop-muted); }
+.product-detail [data-sf-target="card"] > a:hover, .product-links a:hover { color: var(--shop-ink); }
+.product-detail .variant-chips button, .product-detail .quantity button { border-color: var(--shop-line); }
+.product-detail .variant-chips button[aria-pressed="true"] { background: var(--shop-ink); color: var(--shop-bg); border-color: var(--shop-ink); }
+.variant-chips .dim, .quantity > span:first-child { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--shop-muted); }
+.thumbs button[aria-pressed="true"] { outline: 1px solid var(--sl-brass); outline-offset: 3px; }
+.sheet, .sheet th, .sheet td, .sheet dl div { border-color: var(--shop-line); }
+.low-stock, .cart-error { color: #ef9a88; }
+
+/* The cart drawer and its forms, in the same room. */
+.cart { border-left: 1px solid var(--shop-line); }
+.cart-form input:not([type=radio]), .cart-form select, .quantity input { background: var(--shop-surface); color: var(--shop-ink); border-color: var(--shop-line); }
+.cart > button, .cart-form > button { border-color: var(--sl-brass); letter-spacing: .2em; text-transform: uppercase; font-size: 12px; }
+.cart-form > .button-link { border: 0; text-transform: none; letter-spacing: 0; }
+
+footer { background: var(--sl-deep); border-top-color: var(--shop-line); padding-block: 72px; }
+footer p, .shop-footer .seller { color: var(--shop-muted); }
+.shop-footer a { color: var(--shop-ink); }
+.shop-footer h3 { font-size: 11px; font-weight: 500; letter-spacing: .26em; color: var(--shop-muted); margin-bottom: 18px; }
+.shop-footer .wordmark { font-size: 20px; letter-spacing: .34em; text-transform: uppercase; }
+
+@media (max-width: 640px) {
+  .announcement { font-size: 10px; letter-spacing: .22em; }
+  .shop-header { padding-block: 14px; row-gap: 12px; }
+  .shop-header .wordmark { font-size: 16px; letter-spacing: .3em; }
+  .shop-header .shop-nav { flex-wrap: nowrap; gap: 22px; overflow-x: auto; scrollbar-width: none; font-size: 10px; }
+  .shop-header .shop-nav a { white-space: nowrap; }
+  .shop main > section { padding: 56px 20px !important; }
+  .shop main > section[data-section-type="hero"] { padding: 0 !important; }
+  .shop main > section[data-section-type="product_detail"] { padding-top: 24px !important; }
+  .hero-overlay { min-height: 84svh; }
+  .hero-overlay > div { padding: 72px 24px 88px; background: radial-gradient(ellipse 90% 50% at 50% 50%, rgb(9 13 11 / .66), transparent 78%), linear-gradient(to bottom, rgb(9 13 11 / .45), rgb(9 13 11 / .25) 45%, var(--shop-bg)); }
+  .shop .hero-overlay h2 { font-size: clamp(44px, 12.6vw, 56px) !important; }
+  .hero-overlay p:not(.eyebrow) { font-size: 18px; }
+  .hero-overlay .eyebrow::before, .hero-overlay .eyebrow::after, section[data-section-type="rich_text"] > .eyebrow::before, section[data-section-type="rich_text"] > .eyebrow::after { width: 24px; }
+  .story-split { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
+  .story-split > img { outline-offset: 8px; }
+  /* On a phone the brass rule sits under the title instead of beside it. */
+  section[data-section-type="product_grid"] h2, section[data-section-type="product_carousel"] h2, section[data-section-type="product_suggested"] h2 { display: block; margin-bottom: 32px; }
+  section[data-section-type="product_grid"] h2::after, section[data-section-type="product_carousel"] h2::after, section[data-section-type="product_suggested"] h2::after { display: block; width: 56px; margin-top: 18px; background: var(--sl-brass); }
+  section[data-section-type="product_carousel"] > div { row-gap: 28px; column-gap: 16px; align-items: end; }
+  section[data-section-type="product_carousel"] h2 { margin-bottom: 0; }
+  .scroll-controls button { min-width: 44px; min-height: 44px; }
+  /* The tabs scroll sideways; the fade says there is more. */
+  .category-chips { gap: 0 24px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 32px; mask-image: linear-gradient(to right, #000 82%, transparent); }
+  .category-chips button { flex: none; }
+  .shop .products { column-gap: 14px !important; row-gap: 40px !important; }
+  .products-carousel .product-card { flex-basis: 80%; }
+  /* A few suggestions become a row to swipe, never an orphan card. */
+  .shop section[data-section-type="product_suggested"] .products { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  section[data-section-type="product_suggested"] .product-card { flex: 0 0 72%; scroll-snap-align: start; }
+  .product-caption { grid-template-columns: minmax(0, 1fr); padding-top: 14px; }
+  .product-caption::before { grid-area: auto; }
+  .product-caption h3, .product-caption span { grid-column: 1; }
+  .product-caption h3 { font-size: 18px; }
+  .products-carousel .product-caption h3 { font-size: 21px; }
+  .product-badge { top: 10px; left: 10px; }
+  .product-detail { grid-template-columns: minmax(0, 1fr); }
+  .product-detail > [data-sf-target="card"] { position: static; padding-top: 0; }
+  .cta::before { height: 56px; margin-bottom: 32px; }
+  .cta p { font-size: 18px; }
+  footer { padding-block: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-card img, .product-media::after, .button, .shop-nav a, .category-chips button { transition: none; }
+  .product-card:hover img { transform: none; }
+}
+}

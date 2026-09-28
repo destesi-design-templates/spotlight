@@ -1,0 +1,13 @@
+{
+  "id": "spotlight",
+  "name": "Spotlight",
+  "description": "A dark gallery: a tall centred cover, large portrait cards and each piece shown like an object under a light.",
+  "best_for": "Small curated collections",
+  "backend": "commerce",
+  "es": {
+    "name": "Vitrina",
+    "description": "Una galería oscura: una portada alta y centrada, tarjetas grandes y cada pieza mostrada como un objeto bajo la luz.",
+    "best_for": "Colecciones pequeñas y curadas"
+  },
+  "hero_compact": false
+}
